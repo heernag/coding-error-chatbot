@@ -1,0 +1,52 @@
+# Secrets and local environment
+.env
+.env.*
+!.env.example
+
+# Python virtual environments
+venv/
+.venv/
+Include/
+Lib/
+Scripts/
+share/
+pyvenv.cfg
+
+# Python cache and test artifacts
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+
+# Node dependencies and build output
+node_modules/
+frontend/node_modules/
+frontend/dist/
+
+# Local databases and generated vector stores
+*.db
+test.db
+chroma_db/
+
+# Local archives and temporary files
+*.zip
+*.log
+*.tmp
+
+# Tool/local workspace metadata
+.superpowers/
+.agents/
+.codex/
+etc/
+
+# Accidental root-level npm lock; frontend has its own package-lock.json
+/package-lock.json
+
+# Local memo with environment-specific notes
+/주의사항.txt
+
+# OS/editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
