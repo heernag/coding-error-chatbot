@@ -6,7 +6,6 @@ from time import perf_counter
 from app.database.connection import get_db
 from app.database.models import ChatHistory
 from app.services.diagnostics import log_duration, log_event
-from app.services.rag_service import get_rag_answer
 
 from app.core.config import settings
 router = APIRouter()
@@ -18,6 +17,8 @@ class ChatRequest(BaseModel):
 
 @router.post('/chat')
 async def chat_with_ai(payload: ChatRequest, db: Session = Depends(get_db)):
+    from app.services.rag_service import get_rag_answer
+
     # TODO: 추후 이곳에 DB 대화기록 조회 및 RAG 서비스 호출 로직이 들어갑니다.
     user_question = payload.question
     session_id = payload.session_id

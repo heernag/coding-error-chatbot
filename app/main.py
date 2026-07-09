@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.core.config import settings
-from app.api import chat
+from app.api import chat, dashboard, wiki
 from app.database.connection import Base, engine
 from app.database import models
 
@@ -24,6 +24,8 @@ app.add_middleware(
 
 # API 라우터 등록
 app.include_router(chat.router, prefix=settings.API_V1_STR, tags=['Chat'])
+app.include_router(wiki.router, prefix=settings.API_V1_STR, tags=['Wiki'])
+app.include_router(dashboard.router, prefix=settings.API_V1_STR, tags=['Dashboard'])
 
 
 @app.get('/')

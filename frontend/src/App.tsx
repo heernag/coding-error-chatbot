@@ -1,7 +1,8 @@
 import { FormEvent, KeyboardEvent, useMemo, useRef, useState } from "react";
+import { API_BASE_URL } from "./api";
+import { DashboardPage } from "./pages/DashboardPage";
+import { WikiPage } from "./pages/WikiPage";
 import "./App.css";
-
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? "http://127.0.0.1:8000";
 
 const REQUIRED_SECTIONS = [
   "[오류 요약]",
@@ -104,7 +105,7 @@ function MessageBubble({ message }: { message: ChatMessage }) {
   );
 }
 
-export default function App() {
+function ChatPage() {
   const [messages, setMessages] = useState<ChatMessage[]>(INITIAL_MESSAGES);
   const [question, setQuestion] = useState("");
   const [isSending, setIsSending] = useState(false);
@@ -223,4 +224,53 @@ export default function App() {
       </section>
     </main>
   );
+}
+
+function AppNavigation() {
+  const links = [
+    ["/", "챗봇"],
+    ["/wiki", "오류 위키"],
+    ["/dashboard", "대시보드"],
+  ];
+
+  return (
+    <nav className="app-nav" aria-label="주요 화면">
+      {links.map(([href, label]) => (
+        <a className={window.location.pathname === href ? "active" : ""} href={href} key={href}>
+          {label}
+        </a>
+      ))}
+    </nav>
+  );
+}
+
+function AppPage({ children }: { children: React.ReactNode }) {
+  return (
+    <>
+      <AppNavigation />
+      {children}
+    </>
+  );
+}
+
+export default function App() {
+  const path = window.location.pathname;
+
+  if (path === "/wiki") {
+    return (
+      <AppPage>
+        <WikiPage />
+      </AppPage>
+    );
+  }
+
+  if (path === "/dashboard") {
+    return (
+      <AppPage>
+        <DashboardPage />
+      </AppPage>
+    );
+  }
+
+  return <ChatPage />;
 }
